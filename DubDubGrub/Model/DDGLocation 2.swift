@@ -6,10 +6,8 @@
 //
 
 import CloudKit
-import UIKit
 
-struct DDGLocation:Identifiable {
-    
+struct DDGLocation {
     static let kName        = "name"
     static let kAddress     = "address"
     static let kPhoneNumber = "phoneNumber"
@@ -19,7 +17,7 @@ struct DDGLocation:Identifiable {
     static let kSquareAsset = "squareAsset"
     static let kBannerAsset = "bannerAsset"
     
-    let id: CKRecord.ID
+    let ckRecordID: CKRecord.ID
     
     let name: String
     let address: String
@@ -32,32 +30,16 @@ struct DDGLocation:Identifiable {
     
     
     init(record: CKRecord){
-        id = record.recordID
-        
-        //Dont know what type you'll get back thus optional
-        name        = record[DDGLocation.kName] as? String ?? "N/A"
-        address     = record[DDGLocation.kAddress] as? String ?? "N/A"
+        ckRecordID = record.recordID
+        name = record[DDGLocation.kName] as? String ?? "N/A"
+        address = record[DDGLocation.kAddress] as? String ?? "N/A"
         phoneNumber = record[DDGLocation.kPhoneNumber] as? String ?? "N/A"
         description = record[DDGLocation.kDescription] as? String ?? "N/A"
-        websiteURL  = record[DDGLocation.kWebsiteURL] as? String ?? "N/A"
-        location    = record[DDGLocation.kLocation] as? CLLocation ?? CLLocation(latitude: 0, longitude: 0)
+        websiteURL = record[DDGLocation.kWebsiteURL] as? String ?? "N/A"
+        location = record[DDGLocation.kLocation] as? CLLocation ?? CLLocation(latitude: 0, longitude: 0)
         squareAsset = record[DDGLocation.kSquareAsset] as? CKAsset
         bannerAsset = record[DDGLocation.kBannerAsset] as? CKAsset
-    }
-    
-    func createSquareImage() -> UIImage {
-        guard let asset = squareAsset else {
-            return PlaceholderImage.square
-        }
         
-        return asset.convertToUIImage(in: .square)
-    }
-
-    func createBannerImage() -> UIImage {
-        guard let asset = bannerAsset else {
-            return PlaceholderImage.banner
-        }
         
-        return asset.convertToUIImage(in: .banner)
     }
 }
