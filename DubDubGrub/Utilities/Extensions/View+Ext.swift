@@ -11,4 +11,9 @@ extension View {
     func profileNameTextStyle() -> some View {
         self.modifier(ProfileNameText())
     }
+    
+    //Function to dismiss keyboard
+    func dismissKeyboard(){
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
