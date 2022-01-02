@@ -24,11 +24,11 @@ struct LocationCell: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.75)
+                    .minimumScaleFactor(0.70)
                 HStack {
-                    AvatarView(size: 35)
-                    AvatarView(size: 35)
-                    AvatarView(size: 35)
+                    AvatarView(size: 35,image: PlaceholderImage.avatar)
+                    AvatarView(size: 35,image: PlaceholderImage.avatar)
+                    AvatarView(size: 35,image: PlaceholderImage.avatar)
                 }
             }
             .padding(.leading)
