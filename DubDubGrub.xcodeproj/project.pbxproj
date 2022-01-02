@@ -35,6 +35,7 @@
 		56B7220C2781EF46006B900F /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B7220B2781EF46006B900F /* OnboardView.swift */; };
 		56B7220E2781EF81006B900F /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B7220D2781EF81006B900F /* LogoView.swift */; };
 		56B722112781F4E2006B900F /* XDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B722102781F4E2006B900F /* XDismissButton.swift */; };
+		56B7221427820932006B900F /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B7221327820932006B900F /* PhotoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		56B7220B2781EF46006B900F /* OnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
 		56B7220D2781EF81006B900F /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		56B722102781F4E2006B900F /* XDismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XDismissButton.swift; sourceTree = "<group>"; };
+		56B7221327820932006B900F /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 		563B7435268E550400117D5D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				56B722122782090C006B900F /* UIKit Components */,
 				56B7220F2781F4D5006B900F /* Buttons */,
 				563B7428268E50A600117D5D /* AvatarView.swift */,
 				56B7220D2781EF81006B900F /* LogoView.swift */,
@@ -232,6 +235,14 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		56B722122782090C006B900F /* UIKit Components */ = {
+			isa = PBXGroup;
+			children = (
+				56B7221327820932006B900F /* PhotoPicker.swift */,
+			);
+			path = "UIKit Components";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -311,6 +322,7 @@
 				563B7425268E238400117D5D /* LocationDetailView.swift in Sources */,
 				563B743A268F8B8400117D5D /* DDGProfile.swift in Sources */,
 				563B7438268F865A00117D5D /* DDGLocation.swift in Sources */,
+				56B7221427820932006B900F /* PhotoPicker.swift in Sources */,
 				563B741D268E118700117D5D /* AppTabView.swift in Sources */,
 				563B7423268E121C00117D5D /* ProfileView.swift in Sources */,
 				56902A09277D23F100EDE5F6 /* CloudKitManager.swift in Sources */,
