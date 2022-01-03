@@ -95,9 +95,9 @@ struct ProfileView: View {
             alertItem = AlertContext.invalidProfile
             return
         }
-        dismissKeyboard()
+        //Create CKRecord from profile view
         
-        //Create profile and send to cloud kit
+        
     }
 }
 
