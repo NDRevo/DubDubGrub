@@ -8,6 +8,10 @@
 import Foundation
 import CloudKit
 
+enum ProfileContext {
+    case create, update
+}
+
 final class ProfileViewModel: ObservableObject {
 
     @Published var firstName    = ""
@@ -18,7 +22,15 @@ final class ProfileViewModel: ObservableObject {
     @Published var isShowingPhotoPicker = false
     @Published var isLoading    = false
     @Published var alertItem: AlertItem?
-
+    
+    //When value of existingProfileRecord changes, didSet is called to update context to .update
+    private var existingProfileRecord: CKRecord? {
+        didSet {
+            profileContext = .update
+        }
+    }
+    var profileContext: ProfileContext = .create
+    
     func isValidProfile() -> Bool{
         guard !firstName.isEmpty,
               !lastName.isEmpty,
@@ -52,7 +64,10 @@ final class ProfileViewModel: ObservableObject {
             DispatchQueue.main.async { [self] in
                 hideLoadingView()
                 switch result {
-                case .success(_):
+                case .success(let records):
+                    for record in records where record.recordType == RecordType.profile {
+                        existingProfileRecord = record
+                    }
                     alertItem = AlertContext.createProfileSuccess
                     break
                 case .failure(_):
@@ -78,21 +93,54 @@ final class ProfileViewModel: ObservableObject {
         let profileRecordID = profileReference.recordID
         showLoadingView()
         CloudKitManager.shared.fetchRecord(with: profileRecordID) { result in
+            //Working on background thread, need to be on main thread in order for views to be updated
             DispatchQueue.main.async { [self] in
                 hideLoadingView()
                 switch result {
+                    case .success(let record):
+                        existingProfileRecord = record
+                    
+                        let profile = DDGProfile(record: record)
+                        firstName   = profile.firstName
+                        lastName    = profile.lastName
+                        companyName = profile.companyName
+                        bio         = profile.bio
+                        avatar      = profile.createAvatarImage()
+                    case .failure(_):
+                        alertItem = AlertContext.unableToGetProfile
+                        break
+                    }
+            }
+        }
+    }
 
-                case .success(let record):
-                    //Working on background thread, need to be on main thread
-                    let profile = DDGProfile(record: record)
-                    firstName   = profile.firstName
-                    lastName    = profile.lastName
-                    companyName = profile.companyName
-                    bio         = profile.bio
-                    avatar      = profile.createAvatarImage()
-                case .failure(_):
-                    alertItem = AlertContext.unableToGetProfile
-                    break
+    //Instead of creating a whole new profile record with a new record id, we will have profile record persists
+    func updateProfile(){
+        guard isValidProfile() else {
+            alertItem = AlertContext.invalidProfile
+            return
+        }
+
+        guard let profileRecord = existingProfileRecord else {
+            alertItem = AlertContext.unableToGetProfile
+            return
+        }
+
+        profileRecord[DDGProfile.kFirstName]    = firstName
+        profileRecord[DDGProfile.kLastName]     = lastName
+        profileRecord[DDGProfile.kBio]          = bio
+        profileRecord[DDGProfile.kCompanyName]  = companyName
+        profileRecord[DDGProfile.kAvatar] = avatar.convertToCKAsset()
+
+        showLoadingView()
+        CloudKitManager.shared.save(record: profileRecord) { result in
+            DispatchQueue.main.async { [self] in
+                hideLoadingView()
+                switch result {
+                    case .success(_):
+                        alertItem = AlertContext.updateProfileSuccess
+                    case .failure(_):
+                        alertItem = AlertContext.updateProfileFailure
                 }
             }
         }

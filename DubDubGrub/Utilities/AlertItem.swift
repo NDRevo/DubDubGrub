@@ -51,8 +51,16 @@ struct AlertContext {
                                                 message: Text("We were unable to crete your profile at this time. \n Please try again later."),
                                                 dismissButton: .default(Text("Ok")))
     //Failed to get profile
-    static let unableToGetProfile = AlertItem(title: Text("Unable to Retrieve Profile"),
+    static let unableToGetProfile   = AlertItem(title: Text("Unable to Retrieve Profile"),
                                                 message: Text("We were unable to retrieve your profile at this time. \n Please check your internet connection and try again later."),
+                                                dismissButton: .default(Text("Ok")))
+    //Failed to get profile
+    static let updateProfileSuccess = AlertItem(title: Text("Profile Update Success!"),
+                                                message: Text("Your profile was updated successfully!"),
+                                                dismissButton: .default(Text("Bet")))
+    //Failed to get profile
+    static let updateProfileFailure = AlertItem(title: Text("Profile Update Failed"),
+                                                message: Text("We were unable to update your profile at this time. Please try again later."),
                                                 dismissButton: .default(Text("Ok")))
     
 }
