@@ -71,6 +71,9 @@ struct ProfileView: View {
                     Image(systemName: "keyboard.chevron.compact.down")
                 }
             }
+            .onAppear {
+                getProfile()
+            }
             .alert(item: $alertItem, content: { alertItem in
                 Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
             })
@@ -132,6 +135,46 @@ struct ProfileView: View {
                 //Add to database
                 
                 CKContainer.default().publicCloudDatabase.add(operation)
+            }
+        }
+    }
+    
+    func getProfile(){
+        //Get user record ID
+        CKContainer.default().fetchUserRecordID{ recordID, error in
+            guard let recordID = recordID, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            //Get User record from Public Database
+            CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
+                guard let userRecord = userRecord, error == nil else {
+                    print(error!.localizedDescription)
+                    return
+                }
+                
+                //Get reference
+                let profileReference = userRecord["userProfile"] as! CKRecord.Reference
+                let profileRecordID = profileReference.recordID
+                
+                //Fetch profile record
+                CKContainer.default().publicCloudDatabase.fetch(withRecordID: profileRecordID) { profileRecord, error in
+                    guard let profileRecord = profileRecord, error == nil else {
+                        print(error!.localizedDescription)
+                        return
+                    }
+                    
+                    //Working on back end thread, need to be on main thread
+                    DispatchQueue.main.async {
+                        let profile = DDGProfile(record: profileRecord)
+                        firstName   = profile.firstName
+                        lastName    = profile.lastName
+                        companyName = profile.companyName
+                        bio         = profile.bio
+                        avatar      = profile.createAvatarImage()
+                    }
+                }
             }
         }
     }
