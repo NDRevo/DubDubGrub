@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CloudKit
 
 struct ProfileView: View {
     
@@ -96,8 +97,43 @@ struct ProfileView: View {
             return
         }
         //Create CKRecord from profile view
+        let profileRecord = CKRecord(recordType: RecordType.profile)
+        profileRecord[DDGProfile.kFirstName]    = firstName
+        profileRecord[DDGProfile.kLastName]     = lastName
+        profileRecord[DDGProfile.kBio]          = bio
+        profileRecord[DDGProfile.kCompanyName]  = companyName
+        profileRecord[DDGProfile.kAvatar] = avatar.convertToCKAsset()
         
-        
+        //Get our UserRecord ID from Container
+        CKContainer.default().fetchUserRecordID{ recordID, error in
+            guard let recordID = recordID, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            //Get User record from Public Database
+            CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
+                guard let userRecord = userRecord, error == nil else {
+                    print(error!.localizedDescription)
+                    return
+                }
+                //Create reference on UserRecord to DDGProfile we created
+                userRecord["userProfile"] = CKRecord.Reference(recordID: profileRecord.recordID, action: .none)
+                
+                //Create CKOPeration to save our User & Profile Records, batch save
+                let operation = CKModifyRecordsOperation(recordsToSave: [userRecord,profileRecord])
+                operation.modifyRecordsCompletionBlock = { savedRecords, _, error in
+                    guard let savedRecords = savedRecords, error == nil else {
+                        print(error!.localizedDescription)
+                        return
+                    }
+                    print(savedRecords)
+                }
+                
+                //Add to database
+                
+                CKContainer.default().publicCloudDatabase.add(operation)
+            }
+        }
     }
 }
 

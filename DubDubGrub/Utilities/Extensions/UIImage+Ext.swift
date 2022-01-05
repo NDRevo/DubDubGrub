@@ -20,17 +20,17 @@ extension UIImage {
         let fileURL = urlPath.appendingPathComponent("selectedAvatarImage")
         
         //Write image data to location address points to
-        guard let imageData = jpegData(compressionQuality: 0.25) else {
-            return nil
-        }
-        
-        //Create CKAsset with that fileURL
-        do {
-            //Write data to address
-            try imageData.write(to: fileURL)
-            return CKAsset(fileURL: fileURL)
-        } catch {
-            return nil
-        }
+        guard let imageData = self.jpegData(compressionQuality: 0.25) else {
+                return nil
+            }
+            
+            //Create CKAsset with that fileURL
+            do {
+                //Write data to address
+                try imageData.write(to: fileURL)
+                return CKAsset(fileURL: fileURL)
+            } catch {
+                return nil
+            }
     }
 }

@@ -30,7 +30,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.editedImage] as? UIImage {
-                photoPicker.image = UIImage(data: image)!
+                photoPicker.image = image
             }
             
             photoPicker.presentationMode.wrappedValue.dismiss()
