@@ -9,7 +9,7 @@ import CloudKit
 
 struct MockData {
     static var location: CKRecord {
-        let record = CKRecord(recordType: "DDGLocation")
+        let record = CKRecord(recordType: RecordType.location)
         record[DDGLocation.kName]           = "Noe's Bar and Grill"
         record[DDGLocation.kAddress]        = "123 Main Street"
         record[DDGLocation.kDescription]    = "This is a really good place to eat some good food, i hope you come and enjoy the food here"
@@ -19,5 +19,15 @@ struct MockData {
         
         
         return record
+    }
+    
+    static var profile: CKRecord {
+        let profile = CKRecord(recordType: RecordType.profile)
+        profile[DDGProfile.kFirstName]      = "Noe"
+        profile[DDGProfile.kLastName]       = "Duran"
+        profile[DDGProfile.kCompanyName]    = "MechSpaceCo"
+        profile[DDGProfile.kBio]            = "This is my bio! I build keyboards!"
+    
+        return profile
     }
 }

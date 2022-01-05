@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5615FDD12786383E00D11887 /* LocationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5615FDD02786383E00D11887 /* LocationDetailViewModel.swift */; };
+		5615FDD4278642EC00D11887 /* ProfileModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5615FDD3278642EC00D11887 /* ProfileModalView.swift */; };
 		563B7419268E0DFF00117D5D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 563B7418268E0DFF00117D5D /* CloudKit.framework */; };
 		563B741B268E10A800117D5D /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B741A268E10A800117D5D /* Color+Ext.swift */; };
 		563B741D268E118700117D5D /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B741C268E118700117D5D /* AppTabView.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5615FDD02786383E00D11887 /* LocationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewModel.swift; sourceTree = "<group>"; };
+		5615FDD3278642EC00D11887 /* ProfileModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModalView.swift; sourceTree = "<group>"; };
 		563B7416268E0DB700117D5D /* DubDubGrub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DubDubGrub.entitlements; sourceTree = "<group>"; };
 		563B7418268E0DFF00117D5D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		563B741A268E10A800117D5D /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
@@ -91,6 +95,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5615FDD22786384400D11887 /* LocationDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				5615FDD02786383E00D11887 /* LocationDetailViewModel.swift */,
+				563B7424268E238400117D5D /* LocationDetailView.swift */,
+				5615FDD3278642EC00D11887 /* ProfileModalView.swift */,
+			);
+			path = LocationDetailView;
+			sourceTree = "<group>";
+		};
 		563B7417268E0DFF00117D5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,11 +139,11 @@
 		563B7433268E54CC00117D5D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				5615FDD22786384400D11887 /* LocationDetailView */,
 				56B722192785DBF9006B900F /* ProfileView */,
 				56902A10277D364F00EDE5F6 /* LocationMapView */,
 				563B741C268E118700117D5D /* AppTabView.swift */,
 				563B7420268E120E00117D5D /* LocationListView.swift */,
-				563B7424268E238400117D5D /* LocationDetailView.swift */,
 				56B7220B2781EF46006B900F /* OnboardView.swift */,
 			);
 			path = Screens;
@@ -333,6 +347,7 @@
 				56902A0B277D24CC00EDE5F6 /* Constants.swift in Sources */,
 				563B742B268E52B500117D5D /* CustomModifiers.swift in Sources */,
 				563B741F268E11F200117D5D /* LocationMapView.swift in Sources */,
+				5615FDD12786383E00D11887 /* LocationDetailViewModel.swift in Sources */,
 				56902A12277D366400EDE5F6 /* LocationMapViewModel.swift in Sources */,
 				563B7421268E120E00117D5D /* LocationListView.swift in Sources */,
 				56B722182785DBF4006B900F /* ProfileViewModel.swift in Sources */,
@@ -349,6 +364,7 @@
 				56902A0F277D291200EDE5F6 /* AlertItem.swift in Sources */,
 				563B742D268E52DE00117D5D /* View+Ext.swift in Sources */,
 				563B7427268E508500117D5D /* LocationCell.swift in Sources */,
+				5615FDD4278642EC00D11887 /* ProfileModalView.swift in Sources */,
 				56902A0D277D281D00EDE5F6 /* CKRecord+Ext.swift in Sources */,
 				56902A15277D397300EDE5F6 /* LocationManager.swift in Sources */,
 				56B7220A277E005A006B900F /* CKAsset+Ext.swift in Sources */,
