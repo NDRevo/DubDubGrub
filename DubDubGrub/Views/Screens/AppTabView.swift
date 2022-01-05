@@ -26,6 +26,9 @@ struct AppTabView: View {
                 Label("Profile", systemImage: "person.fill")
             }
         }
+        .onAppear {
+            CloudKitManager.shared.getUserRecord()
+        }
         .accentColor(.brandPrimary)
     }
 }

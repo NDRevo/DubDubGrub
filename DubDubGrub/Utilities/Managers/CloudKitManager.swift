@@ -7,8 +7,39 @@
 
 import CloudKit
 
-struct CloudKitManager {
-    static func getLocations(completed: @escaping(Result<[DDGLocation], Error>) -> Void){
+//Needs to be singleton instead of struct because we need to save user record
+//Singleton is like global variable, but can be hard to debug
+final class CloudKitManager {
+
+    static let shared = CloudKitManager()
+
+    //Makes it so it can't be initialized anywhere else
+    private init(){}
+
+    //Retrieved on launch of app instead of saved locally because icloud account can be signed out, causing issues
+    var userRecord: CKRecord?
+    
+    //Fired at launch,
+    func getUserRecord(){
+        //Get our UserRecord ID from Container
+        CKContainer.default().fetchUserRecordID{ recordID, error in
+            guard let recordID = recordID, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            //Get User record from Public Database
+            CKContainer.default().publicCloudDatabase.fetch(withRecordID: recordID) { userRecord, error in
+                guard let userRecord = userRecord, error == nil else {
+                    print(error!.localizedDescription)
+                    return
+                }
+                self.userRecord = userRecord
+            }
+        }
+    }
+
+    func getLocations(completed: @escaping(Result<[DDGLocation], Error>) -> Void){
         //Sort by name, name is SORTABLE in CloudKit
         let sortDescriptor = NSSortDescriptor(key: DDGLocation.kName, ascending: true)
         //Predicate set true to get every DDGLocation
@@ -34,6 +65,33 @@ struct CloudKitManager {
 //            }
             
             completed(.success(locations))
+        }
+    }
+    
+    func batchSave(records: [CKRecord], completed: @escaping (Result<[CKRecord], Error>) ->Void){
+        
+        //Create CKOPeration to save our User & Profile Records, batch save
+        let operation = CKModifyRecordsOperation(recordsToSave: records)
+        operation.modifyRecordsCompletionBlock = { savedRecords, _, error in
+            guard let savedRecords = savedRecords, error == nil else {
+                completed(.failure(error!))
+                return
+            }
+            completed(.success(savedRecords))
+        }
+        //Add to database
+        CKContainer.default().publicCloudDatabase.add(operation)
+    }
+    
+    func fetchRecord(with id: CKRecord.ID, completed: @escaping(Result<CKRecord, Error>) -> Void) {
+        //Fetch profile record
+        CKContainer.default().publicCloudDatabase.fetch(withRecordID: id) { record, error in
+            guard let record = record, error == nil else {
+                print(error!.localizedDescription)
+                completed(.failure(error!))
+                return
+            }
+            completed(.success(record))
         }
     }
 }

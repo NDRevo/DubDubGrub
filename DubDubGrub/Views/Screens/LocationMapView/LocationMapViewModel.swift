@@ -69,7 +69,7 @@ final class LocationMapViewModel: NSObject, ObservableObject {
     }
     
     func getLocations(for locationManager: LocationManager){
-        CloudKitManager.getLocations { [self] result in
+        CloudKitManager.shared.getLocations { [self] result in
             //Update on main thread
             DispatchQueue.main.async {
                 switch result {
