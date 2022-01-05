@@ -38,6 +38,7 @@
 		56B7221427820932006B900F /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B7221327820932006B900F /* PhotoPicker.swift */; };
 		56B722162783A10E006B900F /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B722152783A10E006B900F /* UIImage+Ext.swift */; };
 		56B722182785DBF4006B900F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B722172785DBF4006B900F /* ProfileViewModel.swift */; };
+		56B7221B2785F404006B900F /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B7221A2785F404006B900F /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		56B7221327820932006B900F /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		56B722152783A10E006B900F /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		56B722172785DBF4006B900F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		56B7221A2785F404006B900F /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				56B7220F2781F4D5006B900F /* Buttons */,
 				563B7428268E50A600117D5D /* AvatarView.swift */,
 				56B7220D2781EF81006B900F /* LogoView.swift */,
+				56B7221A2785F404006B900F /* LoadingView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				56B7220A277E005A006B900F /* CKAsset+Ext.swift in Sources */,
 				56B7220C2781EF46006B900F /* OnboardView.swift in Sources */,
 				563B742F268E539B00117D5D /* DDGButton.swift in Sources */,
+				56B7221B2785F404006B900F /* LoadingView.swift in Sources */,
 				56B722162783A10E006B900F /* UIImage+Ext.swift in Sources */,
 				563B7429268E50A600117D5D /* AvatarView.swift in Sources */,
 				563B741B268E10A800117D5D /* Color+Ext.swift in Sources */,

@@ -10,12 +10,13 @@ import CloudKit
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
-
+    
     var body: some View {
+        ZStack{
             VStack(){
                 ZStack {
                     NameBackgroundView()
-
+                    
                     HStack(spacing: 16) {
                         ZStack {
                             AvatarView(size: 84, image: viewModel.avatar)
@@ -35,7 +36,7 @@ struct ProfileView: View {
                     }
                     .padding()
                 }
-
+                
                 VStack(alignment: .leading, spacing: 8) {
                     CharactersRemainView(currentCount: viewModel.bio.count)
                     
@@ -45,52 +46,54 @@ struct ProfileView: View {
                                     .stroke(Color.secondary, lineWidth: 1))
                 }
                 .padding(.horizontal, 20)
-
+                
                 Spacer()
-
+                
                 Button {
                     viewModel.createProfile()
                 } label: {
                     DDGButton(title: "Create Profile")
                 }
                 .padding(.bottom)
-
+                
             }
-            .navigationTitle("Profile")
-            .toolbar{
-                Button {
-                    dismissKeyboard()
-                } label: {
-                    Image(systemName: "keyboard.chevron.compact.down")
-                }
-            }
-            .onAppear {
-                viewModel.getProfile()
-            }
-            .alert(item: $viewModel.alertItem, content: { alertItem in
-                Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-            })
-            .sheet(isPresented: $viewModel.isShowingPhotoPicker) {
-                PhotoPicker(image: $viewModel.avatar)
+            if viewModel.isLoading {LoadingView()}
+        }
+        .navigationTitle("Profile")
+        .toolbar{
+            Button {
+                dismissKeyboard()
+            } label: {
+                Image(systemName: "keyboard.chevron.compact.down")
             }
         }
+        .onAppear {
+            viewModel.getProfile()
+        }
+        .alert(item: $viewModel.alertItem, content: { alertItem in
+            Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
+        })
+        .sheet(isPresented: $viewModel.isShowingPhotoPicker) {
+            PhotoPicker(image: $viewModel.avatar)
+        }
+    }
 }
 
 struct CheckOutButton: View {
     var body: some View {
-            HStack(spacing: 6) {
-                Image(systemName: "mappin.and.ellipse")
-                Text("Check Out")
-                    .bold()
-            }
-            .font(.caption)
-            .accentColor(.white)
-            .padding(.horizontal)
-            .background(
-                RoundedRectangle(cornerRadius: 9)
-                    .foregroundColor(Color.pink)
-                    .frame(height: 30)
-            )
+        HStack(spacing: 6) {
+            Image(systemName: "mappin.and.ellipse")
+            Text("Check Out")
+                .bold()
+        }
+        .font(.caption)
+        .accentColor(.white)
+        .padding(.horizontal)
+        .background(
+            RoundedRectangle(cornerRadius: 9)
+                .foregroundColor(Color.pink)
+                .frame(height: 30)
+        )
     }
 }
 
