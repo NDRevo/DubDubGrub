@@ -61,6 +61,7 @@ final class ProfileViewModel: ObservableObject {
                 case .success(let record):
                     //Checking Out
                     record[DDGProfile.kIsCheckedIn] = nil
+                    record[DDGProfile.kIsCheckedInNilChecked] = 0
                     
                     CloudKitManager.shared.save(record: record) { [self] result in
                         DispatchQueue.main.async {

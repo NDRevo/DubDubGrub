@@ -80,8 +80,10 @@ final class LocationDetailViewModel: ObservableObject {
                 switch checkInStatus {
                     case .checkedIn:
                         record[DDGProfile.kIsCheckedIn] = CKRecord.Reference(recordID: location.id, action: .none)
+                        record[DDGProfile.kIsCheckedInNilChecked] = 1
                     case .checkedOut:
                         record[DDGProfile.kIsCheckedIn] = nil
+                        record[DDGProfile.kIsCheckedInNilChecked] = 0
                 }
                 //Save updated profile to cloudkit
                 CloudKitManager.shared.save(record: record) { result in
