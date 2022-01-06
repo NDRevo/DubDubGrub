@@ -67,6 +67,8 @@ final class ProfileViewModel: ObservableObject {
                 case .success(let records):
                     for record in records where record.recordType == RecordType.profile {
                         existingProfileRecord = record
+                        //Makes sure to update profileRecordID when first creating a profile
+                        CloudKitManager.shared.profileRecordID = record.recordID
                     }
                     alertItem = AlertContext.createProfileSuccess
                     break

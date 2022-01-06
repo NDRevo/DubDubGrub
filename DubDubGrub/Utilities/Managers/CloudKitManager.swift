@@ -18,6 +18,7 @@ final class CloudKitManager {
 
     //Retrieved on launch of app instead of saved locally because icloud account can be signed out, causing issues
     var userRecord: CKRecord?
+    var profileRecordID: CKRecord.ID?
     
     //Fired at launch,
     func getUserRecord(){
@@ -35,6 +36,11 @@ final class CloudKitManager {
                     return
                 }
                 self.userRecord = userRecord
+                
+                //Set profileRecordID at launch
+                if let profileReference = userRecord["userProfile"] as? CKRecord.Reference {
+                    self.profileRecordID = profileReference.recordID
+                }
             }
         }
     }
