@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5615FDD12786383E00D11887 /* LocationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5615FDD02786383E00D11887 /* LocationDetailViewModel.swift */; };
 		5615FDD4278642EC00D11887 /* ProfileModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5615FDD3278642EC00D11887 /* ProfileModalView.swift */; };
+		5615FDD7278779D600D11887 /* LocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5615FDD6278779D600D11887 /* LocationListViewModel.swift */; };
 		563B7419268E0DFF00117D5D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 563B7418268E0DFF00117D5D /* CloudKit.framework */; };
 		563B741B268E10A800117D5D /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B741A268E10A800117D5D /* Color+Ext.swift */; };
 		563B741D268E118700117D5D /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B741C268E118700117D5D /* AppTabView.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		5615FDD02786383E00D11887 /* LocationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewModel.swift; sourceTree = "<group>"; };
 		5615FDD3278642EC00D11887 /* ProfileModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModalView.swift; sourceTree = "<group>"; };
+		5615FDD6278779D600D11887 /* LocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewModel.swift; sourceTree = "<group>"; };
 		563B7416268E0DB700117D5D /* DubDubGrub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DubDubGrub.entitlements; sourceTree = "<group>"; };
 		563B7418268E0DFF00117D5D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		563B741A268E10A800117D5D /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
@@ -105,6 +107,16 @@
 			path = LocationDetailView;
 			sourceTree = "<group>";
 		};
+		5615FDD5278779B200D11887 /* LocationListView */ = {
+			isa = PBXGroup;
+			children = (
+				5615FDD6278779D600D11887 /* LocationListViewModel.swift */,
+				563B7420268E120E00117D5D /* LocationListView.swift */,
+				563B7426268E508500117D5D /* LocationCell.swift */,
+			);
+			path = LocationListView;
+			sourceTree = "<group>";
+		};
 		563B7417268E0DFF00117D5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,7 +142,6 @@
 			children = (
 				563B742A268E52B500117D5D /* CustomModifiers.swift */,
 				563B7435268E550400117D5D /* CustomViews */,
-				563B7434268E54F800117D5D /* Cells */,
 				563B7433268E54CC00117D5D /* Screens */,
 			);
 			path = Views;
@@ -139,22 +150,14 @@
 		563B7433268E54CC00117D5D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				5615FDD5278779B200D11887 /* LocationListView */,
 				5615FDD22786384400D11887 /* LocationDetailView */,
 				56B722192785DBF9006B900F /* ProfileView */,
 				56902A10277D364F00EDE5F6 /* LocationMapView */,
 				563B741C268E118700117D5D /* AppTabView.swift */,
-				563B7420268E120E00117D5D /* LocationListView.swift */,
 				56B7220B2781EF46006B900F /* OnboardView.swift */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		563B7434268E54F800117D5D /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				563B7426268E508500117D5D /* LocationCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		563B7435268E550400117D5D /* CustomViews */ = {
@@ -366,6 +369,7 @@
 				563B7427268E508500117D5D /* LocationCell.swift in Sources */,
 				5615FDD4278642EC00D11887 /* ProfileModalView.swift in Sources */,
 				56902A0D277D281D00EDE5F6 /* CKRecord+Ext.swift in Sources */,
+				5615FDD7278779D600D11887 /* LocationListViewModel.swift in Sources */,
 				56902A15277D397300EDE5F6 /* LocationManager.swift in Sources */,
 				56B7220A277E005A006B900F /* CKAsset+Ext.swift in Sources */,
 				56B7220C2781EF46006B900F /* OnboardView.swift in Sources */,
@@ -507,7 +511,7 @@
 				DEVELOPMENT_TEAM = Q8CL37543D;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = DubDubGrub/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -530,7 +534,7 @@
 				DEVELOPMENT_TEAM = Q8CL37543D;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = DubDubGrub/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
