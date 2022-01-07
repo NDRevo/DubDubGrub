@@ -10,6 +10,7 @@
 		5615FDD12786383E00D11887 /* LocationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5615FDD02786383E00D11887 /* LocationDetailViewModel.swift */; };
 		5615FDD4278642EC00D11887 /* ProfileModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5615FDD3278642EC00D11887 /* ProfileModalView.swift */; };
 		5615FDD7278779D600D11887 /* LocationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5615FDD6278779D600D11887 /* LocationListViewModel.swift */; };
+		5615FDDA2787B91E00D11887 /* MapBallon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5615FDD92787B91E00D11887 /* MapBallon.swift */; };
 		563B7419268E0DFF00117D5D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 563B7418268E0DFF00117D5D /* CloudKit.framework */; };
 		563B741B268E10A800117D5D /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B741A268E10A800117D5D /* Color+Ext.swift */; };
 		563B741D268E118700117D5D /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B741C268E118700117D5D /* AppTabView.swift */; };
@@ -42,12 +43,15 @@
 		56B722162783A10E006B900F /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B722152783A10E006B900F /* UIImage+Ext.swift */; };
 		56B722182785DBF4006B900F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B722172785DBF4006B900F /* ProfileViewModel.swift */; };
 		56B7221B2785F404006B900F /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B7221A2785F404006B900F /* LoadingView.swift */; };
+		56F8E4782787BC9900983C9A /* DDGAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8E4772787BC9900983C9A /* DDGAnnotation.swift */; };
+		56F8E47B2787C13700983C9A /* AppTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8E47A2787C13700983C9A /* AppTabViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5615FDD02786383E00D11887 /* LocationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewModel.swift; sourceTree = "<group>"; };
 		5615FDD3278642EC00D11887 /* ProfileModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModalView.swift; sourceTree = "<group>"; };
 		5615FDD6278779D600D11887 /* LocationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewModel.swift; sourceTree = "<group>"; };
+		5615FDD92787B91E00D11887 /* MapBallon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBallon.swift; sourceTree = "<group>"; };
 		563B7416268E0DB700117D5D /* DubDubGrub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DubDubGrub.entitlements; sourceTree = "<group>"; };
 		563B7418268E0DFF00117D5D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		563B741A268E10A800117D5D /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 		56B722152783A10E006B900F /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		56B722172785DBF4006B900F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		56B7221A2785F404006B900F /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		56F8E4772787BC9900983C9A /* DDGAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDGAnnotation.swift; sourceTree = "<group>"; };
+		56F8E47A2787C13700983C9A /* AppTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,15 @@
 				563B7426268E508500117D5D /* LocationCell.swift */,
 			);
 			path = LocationListView;
+			sourceTree = "<group>";
+		};
+		5615FDD82787B90400D11887 /* Map Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				5615FDD92787B91E00D11887 /* MapBallon.swift */,
+				56F8E4772787BC9900983C9A /* DDGAnnotation.swift */,
+			);
+			path = "Map Annotation";
 			sourceTree = "<group>";
 		};
 		563B7417268E0DFF00117D5D /* Frameworks */ = {
@@ -150,11 +165,11 @@
 		563B7433268E54CC00117D5D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				56F8E4792787C12000983C9A /* AppTabView */,
 				5615FDD5278779B200D11887 /* LocationListView */,
 				5615FDD22786384400D11887 /* LocationDetailView */,
 				56B722192785DBF9006B900F /* ProfileView */,
 				56902A10277D364F00EDE5F6 /* LocationMapView */,
-				563B741C268E118700117D5D /* AppTabView.swift */,
 				56B7220B2781EF46006B900F /* OnboardView.swift */,
 			);
 			path = Screens;
@@ -163,6 +178,7 @@
 		563B7435268E550400117D5D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				5615FDD82787B90400D11887 /* Map Annotation */,
 				56B722122782090C006B900F /* UIKit Components */,
 				56B7220F2781F4D5006B900F /* Buttons */,
 				563B7428268E50A600117D5D /* AvatarView.swift */,
@@ -277,6 +293,15 @@
 			path = ProfileView;
 			sourceTree = "<group>";
 		};
+		56F8E4792787C12000983C9A /* AppTabView */ = {
+			isa = PBXGroup;
+			children = (
+				56F8E47A2787C13700983C9A /* AppTabViewModel.swift */,
+				563B741C268E118700117D5D /* AppTabView.swift */,
+			);
+			path = AppTabView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -357,9 +382,11 @@
 				563B743C268F8D0A00117D5D /* MockData.swift in Sources */,
 				563B7425268E238400117D5D /* LocationDetailView.swift in Sources */,
 				563B743A268F8B8400117D5D /* DDGProfile.swift in Sources */,
+				56F8E47B2787C13700983C9A /* AppTabViewModel.swift in Sources */,
 				563B7438268F865A00117D5D /* DDGLocation.swift in Sources */,
 				56B7221427820932006B900F /* PhotoPicker.swift in Sources */,
 				563B741D268E118700117D5D /* AppTabView.swift in Sources */,
+				5615FDDA2787B91E00D11887 /* MapBallon.swift in Sources */,
 				563B7423268E121C00117D5D /* ProfileView.swift in Sources */,
 				56902A09277D23F100EDE5F6 /* CloudKitManager.swift in Sources */,
 				56B7220E2781EF81006B900F /* LogoView.swift in Sources */,
@@ -367,6 +394,7 @@
 				56902A0F277D291200EDE5F6 /* AlertItem.swift in Sources */,
 				563B742D268E52DE00117D5D /* View+Ext.swift in Sources */,
 				563B7427268E508500117D5D /* LocationCell.swift in Sources */,
+				56F8E4782787BC9900983C9A /* DDGAnnotation.swift in Sources */,
 				5615FDD4278642EC00D11887 /* ProfileModalView.swift in Sources */,
 				56902A0D277D281D00EDE5F6 /* CKRecord+Ext.swift in Sources */,
 				5615FDD7278779D600D11887 /* LocationListViewModel.swift in Sources */,
