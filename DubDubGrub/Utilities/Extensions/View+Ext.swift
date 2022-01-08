@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension View {
+
     func profileNameTextStyle() -> some View {
         self.modifier(ProfileNameText())
     }

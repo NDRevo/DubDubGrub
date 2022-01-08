@@ -17,6 +17,7 @@ struct AppTabView: View {
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }
+
             LocationListView()
                 .tabItem {
                     Label("Locations", systemImage: "building.2.fill")
@@ -28,6 +29,7 @@ struct AppTabView: View {
             .tabItem {
                 Label("Profile", systemImage: "person.fill")
             }
+
         }
         .onAppear {
             CloudKitManager.shared.getUserRecord()

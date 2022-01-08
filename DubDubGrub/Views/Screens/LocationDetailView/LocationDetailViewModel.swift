@@ -14,11 +14,11 @@ enum CheckInStatus {
 }
 
 final class LocationDetailViewModel: ObservableObject {
+
+    var location: DDGLocation
     let columns = [GridItem(.flexible()),
                    GridItem(.flexible()),
                    GridItem(.flexible())]
-
-    var location: DDGLocation
 
     @Published var isLoading = false
     @Published var checkedInProfiles: [DDGProfile] = []
@@ -43,6 +43,7 @@ final class LocationDetailViewModel: ObservableObject {
             alertItem = AlertContext.invalidPhoneNumber
             return
         }
+
         if UIApplication.shared.canOpenURL(url){
             UIApplication.shared.open(url)
         }
@@ -53,15 +54,15 @@ final class LocationDetailViewModel: ObservableObject {
         CloudKitManager.shared.fetchRecord(with: profileRecordID) { [self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let record):
-                    if let reference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference{
-                        isCheckedIn = reference.recordID == location.id
-                    } else {
-                        isCheckedIn = false
-                    }
-                case .failure(_):
-                    //Cant change status
-                    alertItem = AlertContext.unableToGetCheckInStatus
+                    case .success(let record):
+                        if let reference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference{
+                            isCheckedIn = reference.recordID == location.id
+                        } else {
+                            isCheckedIn = false
+                        }
+                    case .failure(_):
+                        //Cant change status
+                        alertItem = AlertContext.unableToGetCheckInStatus
                 }
             }
         }
@@ -130,6 +131,7 @@ final class LocationDetailViewModel: ObservableObject {
     private func showLoadingView(){
         isLoading = true
     }
+
     private func hideLoadingView(){
         isLoading = false
     }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AvatarView: View {
+
     var size: CGFloat
     var image: UIImage
     

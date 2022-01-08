@@ -15,9 +15,7 @@ final class AppTabViewModel: NSObject, ObservableObject{
 
     //Optional because user can turn off location services
     var deviceLocationManager: CLLocationManager?
-    
     let kHasSeenOnboardView: String = "hasSeenOnboardView"
-    
     var hasSeenOboardView: Bool {
         return UserDefaults.standard.bool(forKey: kHasSeenOnboardView) //If no value, defaults to false
     }

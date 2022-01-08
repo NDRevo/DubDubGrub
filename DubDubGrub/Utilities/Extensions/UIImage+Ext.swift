@@ -9,6 +9,7 @@ import CloudKit
 import UIKit
 
 extension UIImage {
+
     func convertToCKAsset() -> CKAsset? {
         //Get our app's base document directory url
         guard let urlPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
@@ -33,4 +34,5 @@ extension UIImage {
                 return nil
             }
     }
+
 }

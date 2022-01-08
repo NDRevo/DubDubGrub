@@ -14,7 +14,9 @@ struct OnboardView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack{
+
                 Spacer()
+
                 Button {
                     isShowingOnboardView = false
                 } label: {
@@ -22,7 +24,9 @@ struct OnboardView: View {
                 }
                 .padding()
             }
+
             Spacer()
+
             LogoView(frameWidth: 200)
                 .padding(.bottom)
             
@@ -40,6 +44,7 @@ struct OnboardView: View {
                                 infoDesc: "See where other iOS Devs are and join the party")
             }
             .padding(.horizontal, 40)
+
             Spacer()
         }
     }
@@ -51,13 +56,10 @@ struct OnboardView_Previews: PreviewProvider {
     }
 }
 
-
-
 struct OnboardInfoView: View {
     var imageName: String
     var infoTitle: String
     var infoDesc: String
-    
     
     var body: some View {
         HStack(spacing: 26){

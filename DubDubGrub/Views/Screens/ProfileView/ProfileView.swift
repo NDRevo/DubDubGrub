@@ -9,6 +9,7 @@ import SwiftUI
 import CloudKit
 
 struct ProfileView: View {
+
     @StateObject private var viewModel = ProfileViewModel()
     
     var body: some View {

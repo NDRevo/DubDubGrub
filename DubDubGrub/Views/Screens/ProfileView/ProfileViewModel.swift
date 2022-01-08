@@ -30,6 +30,7 @@ final class ProfileViewModel: ObservableObject {
             profileContext = .update
         }
     }
+
     var profileContext: ProfileContext = .create
     
     func getCheckedInStatus(){
@@ -80,7 +81,8 @@ final class ProfileViewModel: ObservableObject {
             }
         }
     }
-    func isValidProfile() -> Bool{
+
+    private func isValidProfile() -> Bool{
         guard !firstName.isEmpty,
               !lastName.isEmpty,
               !companyName.isEmpty,
@@ -137,11 +139,9 @@ final class ProfileViewModel: ObservableObject {
         }
 
         //Get reference, if none it means they havent created a profile
-        guard let profileReference = userRecord["userProfile"] as? CKRecord.Reference else {
-            return
-        }
-
+        guard let profileReference = userRecord["userProfile"] as? CKRecord.Reference else { return }
         let profileRecordID = profileReference.recordID
+
         showLoadingView()
         CloudKitManager.shared.fetchRecord(with: profileRecordID) { result in
             //Working on background thread, need to be on main thread in order for views to be updated
@@ -150,13 +150,13 @@ final class ProfileViewModel: ObservableObject {
                 switch result {
                     case .success(let record):
                         existingProfileRecord = record
-                    
                         let profile = DDGProfile(record: record)
                         firstName   = profile.firstName
                         lastName    = profile.lastName
                         companyName = profile.companyName
                         bio         = profile.bio
                         avatar      = profile.createAvatarImage()
+
                     case .failure(_):
                         alertItem = AlertContext.unableToGetProfile
                         break
@@ -181,7 +181,7 @@ final class ProfileViewModel: ObservableObject {
         profileRecord[DDGProfile.kLastName]     = lastName
         profileRecord[DDGProfile.kBio]          = bio
         profileRecord[DDGProfile.kCompanyName]  = companyName
-        profileRecord[DDGProfile.kAvatar] = avatar.convertToCKAsset()
+        profileRecord[DDGProfile.kAvatar]       = avatar.convertToCKAsset()
 
         showLoadingView()
         CloudKitManager.shared.save(record: profileRecord) { result in
@@ -203,14 +203,15 @@ final class ProfileViewModel: ObservableObject {
         profileRecord[DDGProfile.kLastName]     = lastName
         profileRecord[DDGProfile.kBio]          = bio
         profileRecord[DDGProfile.kCompanyName]  = companyName
-        profileRecord[DDGProfile.kAvatar] = avatar.convertToCKAsset()
+        profileRecord[DDGProfile.kAvatar]       = avatar.convertToCKAsset()
 
         return profileRecord
     }
-    
+
     private func showLoadingView(){
         isLoading = true
     }
+
     private func hideLoadingView(){
         isLoading = false
     }

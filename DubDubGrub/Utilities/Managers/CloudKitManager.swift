@@ -13,12 +13,12 @@ final class CloudKitManager {
 
     static let shared = CloudKitManager()
 
-    //Makes it so it can't be initialized anywhere else
-    private init(){}
-
     //Retrieved on launch of app instead of saved locally because icloud account can be signed out, causing issues
     var userRecord: CKRecord?
     var profileRecordID: CKRecord.ID?
+
+    //Makes it so it can't be initialized anywhere else
+    private init(){}
     
     //Fired at launch,
     func getUserRecord(){
@@ -69,7 +69,7 @@ final class CloudKitManager {
 //                let location = DDGLocation(record: record)
 //                locations.append(location)
 //            }
-            
+
             completed(.success(locations))
         }
     }
@@ -77,7 +77,6 @@ final class CloudKitManager {
     func getCheckedInProfiles(for locationID: CKRecord.ID, completed: @escaping (Result<[DDGProfile], Error>) -> Void ){
         let reference = CKRecord.Reference(recordID: locationID, action: .none)
         let predicate = NSPredicate(format: "isCheckedIn == %@", reference)
-        
         let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
         
         CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil) { records, error in
@@ -96,7 +95,6 @@ final class CloudKitManager {
         //Means they are checked in somewhere
         let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
         let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
-        
         //Instead of using convenience api we can use this so we can choose which properties to get back, not good for future proofing if need be
         let operation = CKQueryOperation(query: query)
         //operation.desiredKeys = [DDGProfile.kIsCheckedIn, DDGProfile.kAvatar]
@@ -129,7 +127,7 @@ final class CloudKitManager {
         //Means they are checked in somewhere
         let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
         let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
-        
+
         //Instead of using convenience api we can use this so we can choose which properties to get back, not good for future proofing if need be
         let operation = CKQueryOperation(query: query)
         operation.desiredKeys = [DDGProfile.kIsCheckedIn]
@@ -161,7 +159,6 @@ final class CloudKitManager {
     }
     
     func batchSave(records: [CKRecord], completed: @escaping (Result<[CKRecord], Error>) -> Void){
-        
         //Create CKOPeration to save our User & Profile Records, batch save
         let operation = CKModifyRecordsOperation(recordsToSave: records)
         operation.modifyRecordsCompletionBlock = { savedRecords, _, error in
@@ -169,6 +166,7 @@ final class CloudKitManager {
                 completed(.failure(error!))
                 return
             }
+
             completed(.success(savedRecords))
         }
         //Add to database
@@ -182,6 +180,7 @@ final class CloudKitManager {
                 completed(.failure(error!))
                 return
             }
+
             completed(.success(record))
         }
     }
@@ -194,6 +193,7 @@ final class CloudKitManager {
                 completed(.failure(error!))
                 return
             }
+
             completed(.success(record))
         }
     }

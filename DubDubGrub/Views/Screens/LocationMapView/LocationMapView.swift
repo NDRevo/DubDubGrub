@@ -9,6 +9,7 @@ import SwiftUI
 import MapKit
 
 struct LocationMapView: View {
+
     @EnvironmentObject private var locationManager: LocationManager
     @StateObject private var viewModel = LocationMapViewModel()
 
@@ -36,12 +37,7 @@ struct LocationMapView: View {
             if let location = locationManager.selectedLocation {
                 NavigationView{
                     LocationDetailView(viewModel: LocationDetailViewModel(location: location))
-                        .toolbar {
-                            Button("Dismiss") {
-                                viewModel.isShowingDetailView = false
-                            }
-                            .accentColor(.brandPrimary)
-                        }
+                        .toolbar { Button("Dismiss") { viewModel.isShowingDetailView = false }.accentColor(.brandPrimary) }
                 }
             }
         }
@@ -50,9 +46,10 @@ struct LocationMapView: View {
         })
         .onAppear {
             //Runs concurrently because both trigger UI update, count will be saved untl locations have been retrieved and vice versa
-            if locationManager.locations.isEmpty{
+            if locationManager.locations.isEmpty {
                 viewModel.getLocations(for: locationManager)
             }
+
             viewModel.getCheckedInLocationCount()
         }
     }
