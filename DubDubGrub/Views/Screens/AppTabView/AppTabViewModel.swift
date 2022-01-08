@@ -35,11 +35,11 @@ final class AppTabViewModel: NSObject, ObservableObject{
         if CLLocationManager.locationServicesEnabled() {
             deviceLocationManager = CLLocationManager()
             
-            //Force unwrap because we know it exists based on line 22
+            //Force unwrap because we know it exists based on line 36
             deviceLocationManager!.delegate = self
             
             //checkLocationAuthorization() Redundant as delegate already calls this when creating a new CLLocationManager
-            deviceLocationManager?.desiredAccuracy = kCLLocationAccuracyBest
+            deviceLocationManager!.desiredAccuracy = kCLLocationAccuracyBest
             
         } else {
             alertItem = AlertContext.locationsDenied

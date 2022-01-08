@@ -125,6 +125,41 @@ final class CloudKitManager {
         CKContainer.default().publicCloudDatabase.add(operation)
     }
     
+    func getCheckedInProfilesCount(completed: @escaping (Result<[CKRecord.ID: Int], Error>) -> Void) {
+        //Means they are checked in somewhere
+        let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
+        let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
+        
+        //Instead of using convenience api we can use this so we can choose which properties to get back, not good for future proofing if need be
+        let operation = CKQueryOperation(query: query)
+        operation.desiredKeys = [DDGProfile.kIsCheckedIn]
+        
+        var checkedInProfiles: [CKRecord.ID : Int] = [:]
+        operation.recordFetchedBlock = { record in
+
+            //Gets location record because isCheckedIn is reference to location
+            guard let locationReference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference else { return }
+            if let count = checkedInProfiles[locationReference.recordID] {
+                //Not nil
+                checkedInProfiles[locationReference.recordID] = count + 1
+            } else {
+                //If nil
+                checkedInProfiles[locationReference.recordID] = 1
+            }
+        }
+        
+        operation.queryCompletionBlock = { cursor, error in
+            guard error == nil else {
+                completed(.failure(error!))
+                return
+            }
+            //Handle cursor in later video
+            completed(.success(checkedInProfiles))
+        }
+        //Do operation similar to Task.resume()
+        CKContainer.default().publicCloudDatabase.add(operation)
+    }
+    
     func batchSave(records: [CKRecord], completed: @escaping (Result<[CKRecord], Error>) -> Void){
         
         //Create CKOPeration to save our User & Profile Records, batch save
