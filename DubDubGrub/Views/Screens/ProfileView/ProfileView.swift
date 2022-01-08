@@ -45,6 +45,7 @@ struct ProfileView: View {
                         if viewModel.isCheckedIn {
                             Button {
                                 viewModel.checkOut()
+                                playHaptic(with: .success)
                             } label: {
                                 Label("Check Out", systemImage: "mappin.and.ellipse")
                                     .font(.system(size: 12, weight: .semibold))
@@ -77,6 +78,7 @@ struct ProfileView: View {
             if viewModel.isLoading {LoadingView()}
         }
         .navigationTitle("Profile")
+        .navigationBarTitleDisplayMode(DeviceTypes.isiPhone8Standard ? .inline : .automatic)
         .toolbar{
             Button {
                 dismissKeyboard()
