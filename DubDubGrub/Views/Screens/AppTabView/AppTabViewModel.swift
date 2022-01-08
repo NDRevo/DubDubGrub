@@ -45,22 +45,19 @@ final class AppTabViewModel: NSObject, ObservableObject{
     }
     
     private func checkLocationAuthorization(){
-        guard let deviceLocationManager = deviceLocationManager else {
-            return
-        }
+        guard let deviceLocationManager = deviceLocationManager else { return }
 
         switch deviceLocationManager.authorizationStatus{
-            
-        case .notDetermined:
-            deviceLocationManager.requestWhenInUseAuthorization()
-        case .restricted:
-            alertItem = AlertContext.locationsRestricted
-        case .denied:
-            alertItem = AlertContext.locationsDenied
-        case .authorizedAlways, .authorizedWhenInUse:
-            break
-        @unknown default:
-            break
+            case .notDetermined:
+                deviceLocationManager.requestWhenInUseAuthorization()
+            case .restricted:
+                alertItem = AlertContext.locationsRestricted
+            case .denied:
+                alertItem = AlertContext.locationsDenied
+            case .authorizedAlways, .authorizedWhenInUse:
+                break
+            @unknown default:
+                break
         }
     }
 }
