@@ -12,6 +12,7 @@ struct LocationMapView: View {
 
     @EnvironmentObject private var locationManager: LocationManager
     @StateObject private var viewModel = LocationMapViewModel()
+    @Environment(\.sizeCategory) var sizeCategory
 
     var body: some View {
         ZStack {
@@ -38,7 +39,7 @@ struct LocationMapView: View {
         .sheet(isPresented: $viewModel.isShowingDetailView) {
             if let location = locationManager.selectedLocation {
                 NavigationView{
-                    LocationDetailView(viewModel: LocationDetailViewModel(location: location))
+                    viewModel.createLocationDetailView(for: location, in: sizeCategory)
                         .toolbar { Button("Dismiss") { viewModel.isShowingDetailView = false }.accentColor(.brandPrimary) }
                 }
             }

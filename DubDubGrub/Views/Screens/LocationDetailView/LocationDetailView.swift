@@ -13,6 +13,7 @@ struct LocationDetailView: View {
     //ObservedObject when view realizes on data from other screen and view model is being passed in from prev screen
     //ObservedObject when passing data from previous screen
     @ObservedObject var viewModel: LocationDetailViewModel
+    @Environment(\.sizeCategory) var sizeCategory
     
     var body: some View {
         ZStack {
@@ -80,11 +81,11 @@ struct LocationDetailView: View {
                             .padding(.top, 30)
                     } else {
                         ScrollView {
-                            LazyVGrid(columns: viewModel.columns , content: {
+                            LazyVGrid(columns: viewModel.determineColumns(for: sizeCategory) , content: {
                                 ForEach(viewModel.checkedInProfiles) { profile in
                                     FirstNameAvatarView(profile: profile)
                                         .onTapGesture {
-                                            viewModel.selectedProfile = profile
+                                            viewModel.show(profile: profile, in: sizeCategory)
                                         }
                                         .accessibilityElement(children: .ignore)
                                         .accessibilityLabel(Text("\(profile.firstName) \(profile.lastName)"))
@@ -118,6 +119,12 @@ struct LocationDetailView: View {
             viewModel.getCheckedInProfiles()
             viewModel.getCheckedInStatus()
         }
+        .sheet(isPresented: $viewModel.isShowingSheet) {
+            NavigationView {
+                ProfileSheetView(profile: viewModel.selectedProfile!)
+                    .toolbar { Button("Dismiss") { viewModel.isShowingSheet = false }.accentColor(.brandPrimary) }
+            }
+        }
         .alert(item: $viewModel.alertItem, content: { alertItem in
             Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
         })
@@ -129,8 +136,14 @@ struct LocationDetailView: View {
 struct LocationDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            LocationDetailView(viewModel: LocationDetailViewModel(location: DDGLocation(record: MockData.location)))
+            LocationDetailView(viewModel: LocationDetailViewModel(location: DDGLocation(record: MockData.chipotle)))
         }
+        .environment(\.sizeCategory, .extraExtraExtraLarge)
+        NavigationView {
+            LocationDetailView(viewModel: LocationDetailViewModel(location: DDGLocation(record: MockData.chipotle))).embedInScrollView()
+        }
+        .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)
+        
     }
 }
 
@@ -157,11 +170,12 @@ struct LocationActionButton: View {
 
 struct  FirstNameAvatarView: View {
 
+    @Environment(\.sizeCategory) var sizeCategory
     var profile: DDGProfile
     
     var body: some View {
         VStack {
-            AvatarView(size: 64, image: profile.createAvatarImage())
+            AvatarView(size: sizeCategory >= .accessibilityMedium ? 100 : 64, image: profile.createAvatarImage())
             Text(profile.firstName)
                 .bold()
                 .lineLimit(1)
@@ -200,9 +214,8 @@ struct DescriptionView: View {
 
     var body: some View {
         Text(text)
-            .lineLimit(3)
             .minimumScaleFactor(0.75)
-            .frame(height: 70)
             .padding(.horizontal)
+            .fixedSize(horizontal: false, vertical: true)
     }
 }

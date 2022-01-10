@@ -8,6 +8,7 @@
 import Foundation
 import MapKit
 import CloudKit
+import SwiftUI
 
 final class LocationMapViewModel: ObservableObject {
 
@@ -42,6 +43,17 @@ final class LocationMapViewModel: ObservableObject {
                         break
                 }
             }
+        }
+    }
+
+    //ViewBuilder allows ability to return any time of view
+    @ViewBuilder func createLocationDetailView(for location: DDGLocation, in sizeCategory: ContentSizeCategory) -> some View {
+        if sizeCategory >= .accessibilityMedium {
+            //Returns gemotery reader
+            LocationDetailView(viewModel: LocationDetailViewModel(location: location)).embedInScrollView()
+        } else {
+            //Returns LocationDetailView
+            LocationDetailView(viewModel: LocationDetailViewModel(location: location))
         }
     }
 }

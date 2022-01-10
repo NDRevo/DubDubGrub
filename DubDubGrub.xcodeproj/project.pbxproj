@@ -43,6 +43,7 @@
 		56B722162783A10E006B900F /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B722152783A10E006B900F /* UIImage+Ext.swift */; };
 		56B722182785DBF4006B900F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B722172785DBF4006B900F /* ProfileViewModel.swift */; };
 		56B7221B2785F404006B900F /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B7221A2785F404006B900F /* LoadingView.swift */; };
+		56EC3CE3278C92E0007AE5DC /* ProfileSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EC3CE2278C92E0007AE5DC /* ProfileSheetView.swift */; };
 		56F8E4782787BC9900983C9A /* DDGAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8E4772787BC9900983C9A /* DDGAnnotation.swift */; };
 		56F8E47B2787C13700983C9A /* AppTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8E47A2787C13700983C9A /* AppTabViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -87,6 +88,7 @@
 		56B722152783A10E006B900F /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		56B722172785DBF4006B900F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		56B7221A2785F404006B900F /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		56EC3CE2278C92E0007AE5DC /* ProfileSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSheetView.swift; sourceTree = "<group>"; };
 		56F8E4772787BC9900983C9A /* DDGAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDGAnnotation.swift; sourceTree = "<group>"; };
 		56F8E47A2787C13700983C9A /* AppTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +111,7 @@
 				5615FDD02786383E00D11887 /* LocationDetailViewModel.swift */,
 				563B7424268E238400117D5D /* LocationDetailView.swift */,
 				5615FDD3278642EC00D11887 /* ProfileModalView.swift */,
+				56EC3CE2278C92E0007AE5DC /* ProfileSheetView.swift */,
 			);
 			path = LocationDetailView;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				56902A15277D397300EDE5F6 /* LocationManager.swift in Sources */,
 				56B7220A277E005A006B900F /* CKAsset+Ext.swift in Sources */,
 				56B7220C2781EF46006B900F /* OnboardView.swift in Sources */,
+				56EC3CE3278C92E0007AE5DC /* ProfileSheetView.swift in Sources */,
 				563B742F268E539B00117D5D /* DDGButton.swift in Sources */,
 				56B7221B2785F404006B900F /* LoadingView.swift in Sources */,
 				56B722162783A10E006B900F /* UIImage+Ext.swift in Sources */,

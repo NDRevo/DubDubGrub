@@ -18,6 +18,16 @@ extension View {
         generator.notificationOccurred(feedbackType)
     }
     
+    func embedInScrollView() -> some View {
+        GeometryReader { geometry in
+            ScrollView {
+                //Min is size of the screen, max is infinity cause it can scroll infinitly
+                self.frame(minHeight: geometry.size.height, maxHeight: .infinity)
+            }
+            
+        }
+    }
+    
     //Function to dismiss keyboard
     func dismissKeyboard(){
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
