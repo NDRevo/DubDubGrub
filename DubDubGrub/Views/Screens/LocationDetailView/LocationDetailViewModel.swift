@@ -16,6 +16,11 @@ enum CheckInStatus {
 final class LocationDetailViewModel: ObservableObject {
 
     var location: DDGLocation
+    var selectedProfile: DDGProfile? {
+        didSet{
+            isShowingProfileModal = true
+        }
+    }
     let columns = [GridItem(.flexible()),
                    GridItem(.flexible()),
                    GridItem(.flexible())]

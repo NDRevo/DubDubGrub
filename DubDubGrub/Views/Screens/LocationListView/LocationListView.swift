@@ -19,6 +19,8 @@ struct LocationListView: View {
                     NavigationLink(destination: LocationDetailView(viewModel: LocationDetailViewModel(location: location))) {
                         //If no one is checked in at a location, then have a default value of an empty array
                         LocationCell(location: location, profiles: viewModel.checkedInProfiles[location.id, default: []])
+                            .accessibilityElement(children: .ignore)
+                            .accessibilityLabel(Text(viewModel.createVoiceOverSummary(for: location)))
                     }
                 }
             }

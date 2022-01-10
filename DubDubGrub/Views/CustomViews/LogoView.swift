@@ -12,7 +12,8 @@ struct LogoView: View {
     var frameWidth: CGFloat
     
     var body: some View {
-        Image("ddg-map-logo")
+        //Decorative so VoiceOver doesn't ready
+        Image(decorative: "ddg-map-logo")
             .resizable()
             .scaledToFit()
             .frame(height: frameWidth)

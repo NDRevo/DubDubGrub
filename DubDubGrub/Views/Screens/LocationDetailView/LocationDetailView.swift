@@ -36,16 +36,21 @@ struct LocationDetailView: View {
                         } label: {
                             LocationActionButton(color: .brandPrimary, imageName: "location.fill")
                         }
+                        .accessibilityLabel(Text("Get directions"))
                         
                         Link(destination: URL(string: viewModel.location.websiteURL)!, label: {
                             LocationActionButton(color: .brandPrimary, imageName: "network")
                         })
+                        .accessibilityRemoveTraits(.isButton)
+                        .accessibilityLabel(Text("Go to website"))
                         
                         Button {
                             viewModel.callLocation()
                         } label: {
                             LocationActionButton(color: .brandPrimary, imageName: "phone.fill")
                         }
+                        .accessibilityLabel(Text("Call location"))
+
                         if let _ = CloudKitManager.shared.profileRecordID {
                             Button {
                                 viewModel.updateCheckInStatus(to: viewModel.isCheckedIn ? .checkedOut : .checkedIn)
@@ -53,6 +58,7 @@ struct LocationDetailView: View {
                             } label: {
                                 LocationActionButton(color: viewModel.isCheckedIn ? .grubRed : .brandPrimary, imageName: viewModel.isCheckedIn ? "person.fill.xmark" : "person.fill.checkmark")
                             }
+                            .accessibilityLabel(Text(viewModel.isCheckedIn ? "Check out of location" : "Check into location"))
                         }
                     }
                 }
@@ -61,6 +67,9 @@ struct LocationDetailView: View {
                 Text("Who's Here?")
                     .bold()
                     .font(.title2)
+                    .accessibilityAddTraits(.isHeader)
+                    .accessibilityLabel(Text("Who's Here? \(viewModel.checkedInProfiles.count) checked in"))
+                    .accessibilityHint(Text("Bottom section is scrollable"))
                 ZStack{
                     if viewModel.checkedInProfiles.isEmpty {
                         //Empty
@@ -75,8 +84,12 @@ struct LocationDetailView: View {
                                 ForEach(viewModel.checkedInProfiles) { profile in
                                     FirstNameAvatarView(profile: profile)
                                         .onTapGesture {
-                                            viewModel.isShowingProfileModal = true
+                                            viewModel.selectedProfile = profile
                                         }
+                                        .accessibilityElement(children: .ignore)
+                                        .accessibilityLabel(Text("\(profile.firstName) \(profile.lastName)"))
+                                        .accessibilityHint(Text("Show's \(profile.firstName)'s profile pop up."))
+                                        .accessibilityAddTraits(.isButton)
                                 }
                             })
                         }
@@ -93,7 +106,9 @@ struct LocationDetailView: View {
                    // .transition(.opacity)
                     .transition(AnyTransition.opacity.animation(.easeOut(duration: 0.35)))
                     .zIndex(1)
-                ProfileModalView(isShowingProfileModal: $viewModel.isShowingProfileModal, profile: DDGProfile(record: MockData.profile))
+                    .accessibilityHidden(true)
+                ProfileModalView(isShowingProfileModal: $viewModel.isShowingProfileModal, profile: viewModel.selectedProfile!)
+                    .accessibilityAddTraits(.isModal)
                     .transition(.opacity.combined(with: .slide))
                     .animation(.easeOut)
                     .zIndex(2)
@@ -164,6 +179,7 @@ struct BannerImageView: View {
             .resizable()
             .scaledToFill()
             .frame(height: 120)
+            .accessibilityHidden(true)
     }
 }
 

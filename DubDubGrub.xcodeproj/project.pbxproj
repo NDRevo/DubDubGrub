@@ -166,10 +166,10 @@
 			isa = PBXGroup;
 			children = (
 				56F8E4792787C12000983C9A /* AppTabView */,
+				56902A10277D364F00EDE5F6 /* LocationMapView */,
 				5615FDD5278779B200D11887 /* LocationListView */,
 				5615FDD22786384400D11887 /* LocationDetailView */,
 				56B722192785DBF9006B900F /* ProfileView */,
-				56902A10277D364F00EDE5F6 /* LocationMapView */,
 				56B7220B2781EF46006B900F /* OnboardView.swift */,
 			);
 			path = Screens;

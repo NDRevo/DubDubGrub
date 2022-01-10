@@ -27,7 +27,7 @@ struct LocationCell: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.75)
                 if profiles.isEmpty {
-                    Text("No one is checked")
+                    Text("Nobody's Checked In")
                         .fontWeight(.semibold)
                         .foregroundColor(.secondary)
                         .padding(.top, 1)
