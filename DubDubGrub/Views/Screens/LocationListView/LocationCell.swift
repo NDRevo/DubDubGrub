@@ -14,7 +14,7 @@ struct LocationCell: View {
     
     var body: some View {
         HStack {
-            Image(uiImage: location.createSquareImage())
+            Image(uiImage: location.squareImage)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 80, height: 80)
@@ -35,9 +35,9 @@ struct LocationCell: View {
                     HStack {
                         ForEach(profiles.indices, id: \.self){ index in
                             if index <= 3 {
-                                AvatarView(size: 35, image: profiles[index].createAvatarImage())
-                            } else if index == 4 {
-                                AdditionalProfilesView(number: profiles.count - 4)
+                                AvatarView(size: 35, image: profiles[index].avatarImage)
+                            } else if index == 4{
+                                AdditionalProfilesView(number: min(profiles.count - 4, 99))
                             }
                         }
                     }
@@ -53,7 +53,8 @@ struct LocationCell_Previews: PreviewProvider {
     }
 }
 
-struct AdditionalProfilesView: View {
+//fileprivate because only used in this view/file
+fileprivate struct AdditionalProfilesView: View {
 
     var number: Int
 

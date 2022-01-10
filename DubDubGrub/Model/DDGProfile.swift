@@ -37,7 +37,7 @@ struct DDGProfile: Identifiable {
         isCheckedIn = record[DDGProfile.kIsCheckedIn]   as? CKRecord.Reference
     }
     
-    func createAvatarImage() -> UIImage {
+    var avatarImage: UIImage {
         guard let avatar = avatar else {
             return PlaceholderImage.avatar
         }

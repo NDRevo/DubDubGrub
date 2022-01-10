@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardView: View {
     
-    @Binding var isShowingOnboardView: Bool
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack(spacing: 20) {
@@ -18,7 +18,7 @@ struct OnboardView: View {
                 Spacer()
 
                 Button {
-                    isShowingOnboardView = false
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     XDismissButton()
                 }
@@ -52,11 +52,11 @@ struct OnboardView: View {
 
 struct OnboardView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardView(isShowingOnboardView: .constant(true))
+        OnboardView()
     }
 }
 
-struct OnboardInfoView: View {
+fileprivate struct OnboardInfoView: View {
     var imageName: String
     var infoTitle: String
     var infoDesc: String

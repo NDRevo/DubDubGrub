@@ -25,6 +25,7 @@ struct LocationListView: View {
                     }
                 }
             }
+            .alert(item: $viewModel.alertItem, content: { $0.alert })
             .onAppear{
                 viewModel.getCheckedInProfileDictionary()
             }

@@ -24,8 +24,8 @@ enum ImageDimension {
     case square, banner
     
     //Static because everyone ImageDimension has this function
-    static func getPlaceholder(for dimension: ImageDimension) -> UIImage{
-        switch dimension {
+    var placeholder: UIImage{
+        switch self {
             case .square:
                 return PlaceholderImage.square
             case .banner:
