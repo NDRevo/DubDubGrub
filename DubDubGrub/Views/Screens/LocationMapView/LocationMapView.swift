@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import CoreLocationUI
 
 struct LocationMapView: View {
 
@@ -31,6 +32,8 @@ struct LocationMapView: View {
             LogoView(frameWidth: 70)
                 .shadow(radius: 10)
 //                    .accessibilityHidden(true) Hides the UI element
+            
+            
         }
         .sheet(isPresented: $viewModel.isShowingDetailView) {
             if let location = locationManager.selectedLocation {
@@ -39,6 +42,18 @@ struct LocationMapView: View {
                         .toolbar { Button("Dismiss") { viewModel.isShowingDetailView = false } }
                 }
             }
+        }
+        .overlay(alignment: .bottomLeading) {
+            LocationButton(.currentLocation) {
+                viewModel.requestAllowOnceLocationPermission()
+            }
+            .foregroundColor(.white)
+            .symbolVariant(.fill)
+            .tint(.grubRed)
+            .cornerRadius(8)
+            .labelStyle(.iconOnly)
+            .clipShape(Circle())
+            .padding(EdgeInsets(top: 0, leading: 20, bottom: 40, trailing: 0))
         }
         .alert(item: $viewModel.alertItem, content: { $0.alert })
         .onAppear {
