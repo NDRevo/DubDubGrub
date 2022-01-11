@@ -52,10 +52,10 @@ extension LocationMapView {
         @ViewBuilder func createLocationDetailView(for location: DDGLocation, in sizeCategory: ContentSizeCategory) -> some View {
             if sizeCategory >= .accessibilityMedium {
                 //Returns gemotery reader
-                LocationDetailView(viewModel: LocationDetailViewModel(location: location)).embedInScrollView()
+                LocationDetailView(viewModel: LocationDetailView.LocationDetailViewModel(location: location)).embedInScrollView()
             } else {
                 //Returns LocationDetailView
-                LocationDetailView(viewModel: LocationDetailViewModel(location: location))
+                LocationDetailView(viewModel: LocationDetailView.LocationDetailViewModel(location: location))
             }
         }
     }

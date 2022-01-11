@@ -21,12 +21,14 @@ struct ProfileModalView: View {
                     .font(.title2)
                     .lineLimit(1)
                     .minimumScaleFactor(0.75)
+                    .padding(.horizontal)
                 Text(profile.companyName)
                     .fontWeight(.semibold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.75)
                     .foregroundColor(.secondary)
                     .accessibilityLabel("Works at \(profile.companyName)")
+                    .padding(.horizontal)
                 
                 Text(profile.bio)
                     .lineLimit(3)
@@ -55,6 +57,10 @@ struct ProfileModalView: View {
                 .offset(y: -120)
                 .accessibilityHidden(true)
         }
+        .accessibilityAddTraits(.isModal)
+        .transition(.opacity.combined(with: .slide))
+        .animation(.easeOut)
+        .zIndex(2)
     }
 }
 
