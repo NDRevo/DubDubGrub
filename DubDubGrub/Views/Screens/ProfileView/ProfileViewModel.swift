@@ -69,8 +69,8 @@ extension ProfileView{
                             record[DDGProfile.kIsCheckedInNilChecked] = 0
                             
                             CloudKitManager.shared.save(record: record) { [self] result in
-                                hideLoadingView()
                                 DispatchQueue.main.async {
+                                    hideLoadingView()
                                     switch result {
                                         case .success(_):
                                             HapticManager.playHaptic(with: .success)
@@ -81,8 +81,8 @@ extension ProfileView{
                                 }
                             }
                         case .failure(_):
-                            hideLoadingView()
                             DispatchQueue.main.async {
+                                hideLoadingView()
                                 self.alertItem = AlertContext.unableToCheckInOrOut
                             }
                     }
