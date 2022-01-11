@@ -13,7 +13,7 @@ struct LocationDetailView: View {
     //ObservedObject when view realizes on data from other screen and view model is being passed in from prev screen
     //ObservedObject when passing data from previous screen
     @ObservedObject var viewModel: LocationDetailViewModel
-    @Environment(\.sizeCategory) var sizeCategory
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     
     var body: some View {
         ZStack {
@@ -39,7 +39,7 @@ struct LocationDetailView: View {
         .sheet(isPresented: $viewModel.isShowingSheet) {
             NavigationView {
                 ProfileSheetView(profile: viewModel.selectedProfile!)
-                    .toolbar { Button("Dismiss") { viewModel.isShowingSheet = false }.accentColor(.brandPrimary) }
+                    .toolbar { Button("Dismiss") { viewModel.isShowingSheet = false }}
             }
         }
         .alert(item: $viewModel.alertItem, content: {$0.alert})
@@ -53,7 +53,7 @@ struct LocationDetailView_Previews: PreviewProvider {
         NavigationView {
             LocationDetailView(viewModel: LocationDetailView.LocationDetailViewModel(location: DDGLocation(record: MockData.chipotle)))
         }
-        .environment(\.sizeCategory, .extraExtraExtraLarge)
+        .environment(\.dynamicTypeSize, .accessibility5)
     }
 }
 
@@ -176,7 +176,7 @@ fileprivate struct GridHeaderTextView: View {
 struct AvatarGridView: View {
     
     @ObservedObject var viewModel: LocationDetailView.LocationDetailViewModel
-    @Environment(\.sizeCategory) var sizeCategory
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     
     var body: some View {
         ZStack{
@@ -185,11 +185,13 @@ struct AvatarGridView: View {
                 GridEmptyStateTextView()
             } else {
                 ScrollView {
-                    LazyVGrid(columns: viewModel.determineColumns(for: sizeCategory) , content: {
+                    LazyVGrid(columns: viewModel.determineColumns(for: dynamicTypeSize) , content: {
                         ForEach(viewModel.checkedInProfiles) { profile in
                             FirstNameAvatarView(profile: profile)
                                 .onTapGesture {
-                                    viewModel.show(profile, in: sizeCategory)
+                                    withAnimation {
+                                        viewModel.show(profile, in: dynamicTypeSize)
+                                    }
                                 }
                         }
                     })
@@ -214,12 +216,12 @@ fileprivate struct FullScreenBlackTransparentView: View {
 
 fileprivate struct  FirstNameAvatarView: View {
 
-    @Environment(\.sizeCategory) var sizeCategory
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     var profile: DDGProfile
     
     var body: some View {
         VStack {
-            AvatarView(size: sizeCategory >= .accessibilityMedium ? 100 : 64, image: profile.avatarImage)
+            AvatarView(size: dynamicTypeSize >= .accessibility3 ? 100 : 64, image: profile.avatarImage)
             Text(profile.firstName)
                 .bold()
                 .lineLimit(1)

@@ -11,14 +11,14 @@ struct LocationListView: View {
     
     @EnvironmentObject private var locationManager: LocationManager
     @StateObject private var viewModel = LocationViewModel()
-    @Environment(\.sizeCategory) var sizeCategory
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var onAppearHasFired = false
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(locationManager.locations) { location in
-                    NavigationLink(destination: viewModel.createLocationDetailView(for: location, in: sizeCategory)) {
+                    NavigationLink(destination: viewModel.createLocationDetailView(for: location, in: dynamicTypeSize)) {
                         //If no one is checked in at a location, then have a default value of an empty array
                         LocationCell(location: location, profiles: viewModel.checkedInProfiles[location.id, default: []])
                             .accessibilityElement(children: .ignore)
@@ -36,6 +36,7 @@ struct LocationListView: View {
                 }
             }
             .navigationTitle("Grub Spots")
+            .listStyle(.plain)
         }
     }
 }

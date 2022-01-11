@@ -37,8 +37,8 @@ extension LocationListView {
         }
         
         //ViewBuilder allows ability to return any time of view
-        @ViewBuilder func createLocationDetailView(for location: DDGLocation, in sizeCategory: ContentSizeCategory) -> some View {
-            if sizeCategory >= .accessibilityMedium {
+        @ViewBuilder func createLocationDetailView(for location: DDGLocation, in dynamicTypeSize: DynamicTypeSize) -> some View {
+            if dynamicTypeSize >= .accessibility3 {
                 //Returns gemotery reader
                 LocationDetailView(viewModel: LocationDetailView.LocationDetailViewModel(location: location)).embedInScrollView()
             } else {
