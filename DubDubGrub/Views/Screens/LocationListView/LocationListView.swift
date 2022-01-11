@@ -12,6 +12,7 @@ struct LocationListView: View {
     @EnvironmentObject private var locationManager: LocationManager
     @StateObject private var viewModel = LocationViewModel()
     @Environment(\.sizeCategory) var sizeCategory
+    @State private var onAppearHasFired = false
     
     var body: some View {
         NavigationView {
@@ -27,7 +28,12 @@ struct LocationListView: View {
             }
             .alert(item: $viewModel.alertItem, content: { $0.alert })
             .onAppear{
-                viewModel.getCheckedInProfileDictionary()
+                //Prevents onAppaer to be called twice
+                if !onAppearHasFired {
+                    print("👀 onAppear called")
+                    viewModel.getCheckedInProfileDictionary()
+                    onAppearHasFired = true
+                }
             }
             .navigationTitle("Grub Spots")
         }

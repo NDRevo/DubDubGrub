@@ -55,14 +55,12 @@ final class CloudKitManager {
         //Network Call
         //Returns optional records or optional error
         CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil) { records, error in
-            guard error == nil else {
+            guard let records = records, error == nil else {
                 completed(.failure(error!))
                 return
             }
             
-            guard let records = records else { return }
-            
-            let locations = records.map{$0.convertToDDGLocation()}
+            let locations = records.map(DDGLocation.init)
 //            var locations: [DDGLocation] = []
 //
 //            for record in records {
@@ -81,33 +79,76 @@ final class CloudKitManager {
         
         CKContainer.default().publicCloudDatabase.perform(query, inZoneWith: nil) { records, error in
             guard let records = records, error == nil else {
-                print(error!.localizedDescription)
                 completed(.failure(error!))
                 return
             }
             //Convert [CKRecord] to [DDGProfile]
-            let profiles = records.map{$0.convertToDDGProfile()}
+            let profiles = records.map(DDGProfile.init)
             completed(.success(profiles))
         }
     }
     
     func getCheckedInProfilesDictionary(completed: @escaping (Result<[CKRecord.ID: [DDGProfile]], Error>) -> Void) {
+        print("✅ Network call")
         //Means they are checked in somewhere
         let predicate = NSPredicate(format: "isCheckedInNilCheck == 1")
         let query = CKQuery(recordType: RecordType.profile, predicate: predicate)
         //Instead of using convenience api we can use this so we can choose which properties to get back, not good for future proofing if need be
         let operation = CKQueryOperation(query: query)
+        //operation.resultsLimit = 1
         //operation.desiredKeys = [DDGProfile.kIsCheckedIn, DDGProfile.kAvatar]
         
         var checkedInProfiles: [CKRecord.ID : [DDGProfile]] = [:]
         operation.recordFetchedBlock = { record in
-            //Build dictionary
-            let profile = DDGProfile(record: record)
+           let profile = DDGProfile(record: record)
             
             //Gets location record because isCheckedIn is reference to location
-            guard let locationReference = profile.isCheckedIn else { return }
+            guard let locationReference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference else { return }
             checkedInProfiles[locationReference.recordID, default: []].append(profile)
             
+        }
+        
+        operation.queryCompletionBlock = { cursor, error in
+            //if cursor is not nil, there are more profiles/records
+            guard error == nil else {
+                completed(.failure(error!))
+                return
+            }
+            
+            if let cursor = cursor {
+                print("1️⃣  Cursor not nil = \(cursor)")
+                print("🏘  Current dictionary - \(checkedInProfiles)")
+                self.continueWithCheckedInProfilesDict(cursor: cursor, dictionary: checkedInProfiles) { result in
+                    switch result {
+                        
+                    case .success(let profiles):
+                        print("😊1️⃣  Initial success Dictionary -  \(profiles)")
+                        completed(.success(profiles))
+                    case .failure(let error):
+                        print("❌1️⃣  Initial error -  \(error)")
+                        completed(.failure(error))
+                    }
+                }
+            } else {
+                completed(.success(checkedInProfiles))
+            }
+        }
+        
+        //Do operation similar to Task.resume()
+        CKContainer.default().publicCloudDatabase.add(operation)
+    }
+    
+    func continueWithCheckedInProfilesDict(cursor: CKQueryOperation.Cursor,
+                                           dictionary: [CKRecord.ID : [DDGProfile]],
+                                           completed: @escaping (Result<[CKRecord.ID: [DDGProfile]], Error>) -> Void){
+        var checkedInProfiles = dictionary
+        let operation = CKQueryOperation(cursor: cursor)
+        //operation.resultsLimit = 1
+
+        operation.recordFetchedBlock = { record in
+            let profile = DDGProfile(record: record)
+            guard let locationReference = record[DDGProfile.kIsCheckedIn] as? CKRecord.Reference else { return }
+            checkedInProfiles[locationReference.recordID, default: []].append(profile)
         }
         
         operation.queryCompletionBlock = { cursor, error in
@@ -115,11 +156,24 @@ final class CloudKitManager {
                 completed(.failure(error!))
                 return
             }
-            //Handle cursor in later video
-            completed(.success(checkedInProfiles))
+            
+            if let cursor = cursor {
+                print("🅾️  Cursor not nil = \(cursor)")
+                print("📚  Current dictionary - \(checkedInProfiles)")
+                self.continueWithCheckedInProfilesDict(cursor: cursor, dictionary: checkedInProfiles) { result in
+                    switch result {
+                        case .success(let profiles):
+                        print("😊  Recursive success Dictionary -  \(profiles)")
+                            completed(.success(profiles))
+                        case .failure(let error):
+                        print("❌  Recursive error -  \(error)")
+                            completed(.failure(error))
+                    }
+                }
+            } else {
+                completed(.success(checkedInProfiles))
+            }
         }
-        
-        //Do operation similar to Task.resume()
         CKContainer.default().publicCloudDatabase.add(operation)
     }
     
