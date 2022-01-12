@@ -15,13 +15,12 @@ extension LocationListView {
         @Published var checkedInProfiles: [CKRecord.ID:[DDGProfile]] = [:]
         @Published var alertItem: AlertItem?
         
-        func getCheckedInProfileDictionary(){
-            Task {
-                do {
-                    checkedInProfiles = try await CloudKitManager.shared.getCheckedInProfilesDictionary()
-                } catch {
-                    alertItem = AlertContext.unableToGetAllCheckedInProfiles
-                }
+        func getCheckedInProfileDictionary() async{
+            do {
+                checkedInProfiles = try await CloudKitManager.shared.getCheckedInProfilesDictionary()
+                print("Called")
+            } catch {
+                alertItem = AlertContext.unableToGetAllCheckedInProfiles
             }
         }
         
