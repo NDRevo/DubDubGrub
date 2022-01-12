@@ -10,21 +10,17 @@ import CloudKit
 import SwiftUI
 
 extension LocationListView {
-    final class LocationViewModel: ObservableObject {
+    @MainActor final class LocationViewModel: ObservableObject {
         
         @Published var checkedInProfiles: [CKRecord.ID:[DDGProfile]] = [:]
         @Published var alertItem: AlertItem?
         
         func getCheckedInProfileDictionary(){
-            CloudKitManager.shared.getCheckedInProfilesDictionary { result in
-                DispatchQueue.main.async { [self] in
-                    switch result {
-                        case .success(let checkInProfiles):
-                            self.checkedInProfiles = checkInProfiles
-                        case .failure(_):
-                            alertItem = AlertContext.unableToGetAllCheckedInProfiles
-                            print("ERROR getting back dictionary")
-                    }
+            Task {
+                do {
+                    checkedInProfiles = try await CloudKitManager.shared.getCheckedInProfilesDictionary()
+                } catch {
+                    alertItem = AlertContext.unableToGetAllCheckedInProfiles
                 }
             }
         }
@@ -36,7 +32,7 @@ extension LocationListView {
             return "\(location.name) \(count) \(personPlurality) checked in."
         }
         
-        //ViewBuilder allows ability to return any time of view
+        //ViewBuilder allows ability to return any time of view for accessibility
         @ViewBuilder func createLocationDetailView(for location: DDGLocation, in dynamicTypeSize: DynamicTypeSize) -> some View {
             if dynamicTypeSize >= .accessibility3 {
                 //Returns gemotery reader

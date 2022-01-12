@@ -56,7 +56,7 @@ struct LocationMapView: View {
             .padding(EdgeInsets(top: 0, leading: 20, bottom: 40, trailing: 0))
         }
         .alert(item: $viewModel.alertItem, content: { $0.alert })
-        .onAppear {
+        .task {
             //Runs concurrently because both trigger UI update, count will be saved untl locations have been retrieved and vice versa
             if locationManager.locations.isEmpty {
                 viewModel.getLocations(for: locationManager)

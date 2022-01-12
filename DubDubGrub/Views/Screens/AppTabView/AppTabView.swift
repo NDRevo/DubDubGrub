@@ -31,8 +31,10 @@ struct AppTabView: View {
             }
 
         }
-        .onAppear {
-            CloudKitManager.shared.getUserRecord()
+        //Replace onAppear for network calls, gives async context, automatically cancels network call when user changes screens
+        .task {
+            //If fails, returns nil
+            try? await CloudKitManager.shared.getUserRecord()
             viewModel.checkIfHasSeenOnBoard()
         }
         .sheet(isPresented: $viewModel.isShowingOnboardView) {

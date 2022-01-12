@@ -27,10 +27,8 @@ struct LocationListView: View {
                 }
             }
             .alert(item: $viewModel.alertItem, content: { $0.alert })
-            .onAppear{
-                //Prevents onAppaer to be called twice
+            .task{
                 if !onAppearHasFired {
-                    print("👀 onAppear called")
                     viewModel.getCheckedInProfileDictionary()
                     onAppearHasFired = true
                 }
