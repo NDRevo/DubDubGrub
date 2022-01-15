@@ -75,6 +75,7 @@ extension LocationMapView {
                     alertItem = AlertContext.checkedInCount
                 }
             }
+
         }
 
         //ViewBuilder allows ability to return any time of view

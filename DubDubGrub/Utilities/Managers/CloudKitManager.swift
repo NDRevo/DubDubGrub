@@ -16,6 +16,7 @@ final class CloudKitManager {
     //Retrieved on launch of app instead of saved locally because icloud account can be signed out, causing issues
     var userRecord: CKRecord?
     var profileRecordID: CKRecord.ID?
+    
     let container = CKContainer.default()
 
     //Makes it so it can't be initialized anywhere else

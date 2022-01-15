@@ -10,7 +10,7 @@ import SwiftUI
 struct LocationListView: View {
     
     @EnvironmentObject private var locationManager: LocationManager
-    @StateObject private var viewModel = LocationViewModel()
+    @StateObject private var viewModel = LocationListViewModel()
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var onAppearHasFired = false
     
@@ -29,7 +29,7 @@ struct LocationListView: View {
             .alert(item: $viewModel.alertItem, content: { $0.alert })
             .task{
                 if !onAppearHasFired {
-                    await viewModel.getCheckedInProfileDictionary()
+                    viewModel.getCheckedInProfileDictionary()
                     onAppearHasFired = true
                 }
             }
@@ -37,7 +37,7 @@ struct LocationListView: View {
             .listStyle(.plain)
         }
         .refreshable {
-            await viewModel.getCheckedInProfileDictionary()
+            viewModel.getCheckedInProfileDictionary()
         }
     }
 }
